@@ -55,16 +55,16 @@ class AccountServiceTest {
 
         account.printStatement();
 
-        int maxBalanceWidth = account.getStatements().stream()
+        int maxBalanceColWidth = account.getStatements().stream()
                 .mapToInt(r -> String.valueOf(r.currentBalance()).length())
                 .max()
                 .orElse(0);
-        int maxAmountWidth = account.getStatements().stream()
+        int maxAmountColWidth = account.getStatements().stream()
                 .mapToInt(r -> String.valueOf(r.amount()).length())
                 .max()
                 .orElse(0);
 
-        String pattern = "%-10s || %-" + Math.max(maxAmountWidth, "Amount".length()) + "s || %-"+  Math.max(maxBalanceWidth, "Balance".length())+"s\n";
+        String pattern = "%-10s || %-" + Math.max(maxAmountColWidth, "Amount".length()) + "s || %-"+  Math.max(maxBalanceColWidth, "Balance".length())+"s\n";
         String expectedOutput = String.format(pattern, "Date", "Amount", "Balance\n\n") +
                 String.format(pattern, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), 10000, 10000) +
                 String.format(pattern, LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), -5000, 5000);

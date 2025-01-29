@@ -35,15 +35,15 @@ public class Account implements AccountService{
 
     @Override
     public void printStatement() {
-        int maxBalanceWidth = statements.stream()
+        int maxBalanceColWidth = statements.stream()
                 .mapToInt(r -> String.valueOf(r.currentBalance()).length())
                 .max()
                 .orElse(0);
-        int maxAmountWidth = statements.stream()
+        int maxAmountColWidth = statements.stream()
                 .mapToInt(r -> String.valueOf(r.amount()).length())
                 .max()
                 .orElse(0);
-        String pattern = "%-10s || %-" + Math.max(maxAmountWidth, "Amount".length()) + "s || %-"+  Math.max(maxBalanceWidth, "Balance".length())+"s";
+        String pattern = "%-10s || %-" + Math.max(maxAmountColWidth, "Amount".length()) + "s || %-"+  Math.max(maxBalanceColWidth, "Balance".length())+"s";
         System.out.println(String.format(pattern, "Date", "Amount", "Balance"));
         statements.forEach(statement -> System.out.println(String.format(pattern, statement.transactionDate(), statement.amount(), statement.currentBalance())));
     }
