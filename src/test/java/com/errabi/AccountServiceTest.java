@@ -56,11 +56,11 @@ class AccountServiceTest {
         account.printStatement();
 
         int maxBalanceWidth = account.getStatements().stream()
-                .mapToInt(r -> String.valueOf(r.getCurrentBalance()).length())
+                .mapToInt(r -> String.valueOf(r.currentBalance()).length())
                 .max()
                 .orElse(0);
         int maxAmountWidth = account.getStatements().stream()
-                .mapToInt(r -> String.valueOf(r.getAmount()).length())
+                .mapToInt(r -> String.valueOf(r.amount()).length())
                 .max()
                 .orElse(0);
 

@@ -10,8 +10,8 @@ import java.util.List;
 public class Account implements AccountService{
 
     private int balance;
-    private List<Statement> statements = new ArrayList<>();
-    private DateTimeFormatter dateFormatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final List<Statement> statements = new ArrayList<>();
+    private final DateTimeFormatter dateFormatter =  DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     @Override
     public void deposit(int amount) {
@@ -36,17 +36,18 @@ public class Account implements AccountService{
     @Override
     public void printStatement() {
         int maxBalanceWidth = statements.stream()
-                .mapToInt(r -> String.valueOf(r.getCurrentBalance()).length())
+                .mapToInt(r -> String.valueOf(r.currentBalance()).length())
                 .max()
                 .orElse(0);
         int maxAmountWidth = statements.stream()
-                .mapToInt(r -> String.valueOf(r.getAmount()).length())
+                .mapToInt(r -> String.valueOf(r.amount()).length())
                 .max()
                 .orElse(0);
         String pattern = "%-10s || %-" + Math.max(maxAmountWidth, "Amount".length()) + "s || %-"+  Math.max(maxBalanceWidth, "Balance".length())+"s";
         System.out.println(String.format(pattern, "Date", "Amount", "Balance"));
-        statements.forEach(statement -> System.out.println(String.format(pattern, statement.getTransactionDate(), statement.getAmount(), statement.getCurrentBalance())));
+        statements.forEach(statement -> System.out.println(String.format(pattern, statement.transactionDate(), statement.amount(), statement.currentBalance())));
     }
+
     private String getCurrentDate() {
         return LocalDate.now().format(dateFormatter);
     }
